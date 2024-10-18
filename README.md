@@ -1,0 +1,1 @@
+# coopmaster-health-check
