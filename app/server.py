@@ -1,7 +1,7 @@
 import logging
-import requests
 
-from flask import Flask, json, jsonify
+from flask import Flask
+from flask import jsonify
 from waitress import serve
 
 from app import configuration
@@ -13,21 +13,26 @@ def flask_app():
 
     @app.route("/")
     def hello_world():
-        logging.info("Hello World!")
-        return configuration.hello_message
+        message = "Hello World  from health checker"
+        logging.info(message)
+        return message
 
     @app.route("/status")
     def status():
         logging.info("Containers status:")
         statuses = check()
-        for status in statuses:
-            logging.info(status)
+        for state in statuses:
+            logging.info(state)
         return jsonify(statuses)
 
     return app
 
-def server(host: str = "127.0.0.1", port: int = 80, ssl: bool = False):
+
+def server():
     manager_app = flask_app()
 
-    logging.info("Serving on http://"+configuration.host+":"+str(port))
+    port = configuration.config.PORT
+    host = configuration.config.HOST
+
+    logging.info(f"Serving on http://{host}:{port}/status")
     serve(manager_app,  port=port)
