@@ -17,9 +17,9 @@ class AppConfigError(Exception):
 
 
 class AppConfig:
-    PORT: int = 19005
+    PORT: int = 9000
     HOST: str = "127.0.0.1"
-    START_PORT = 9000
+    START_PORT = 9001
     END_PORT = 9010
     DOCKER_HOST = "localhost"
 
