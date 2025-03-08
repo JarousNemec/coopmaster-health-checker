@@ -1,4 +1,3 @@
-import json
 import logging
 
 import requests
@@ -15,13 +14,12 @@ def check():
 
     for service in services:
         try:
-            parts = service.split(':')
             response = requests.get(f'http://{service}', timeout=5)
-            report = f"Service at port: {parts[1]} - Status code: {response.status_code} - {response.text}"
+            report = f"Service at: {service} - Status code: {response.status_code} - {response.text}"
             logging.info(report)
             results.append(report)
         except:
-            results.append(f"Service at {parts[0]}:{parts[1]} - Service unavailable")
+            results.append(f"Service at {service} - Service unavailable")
 
 
 def get_results():
