@@ -1,18 +1,29 @@
+import json
+import logging
+
 import requests
 
 from app import configuration
 
+results = []
+
 
 def check():
-    containers_responses = []
-    docker_host = configuration.config.DOCKER_HOST
+    global results
+    results = []
+    services = configuration.get_services_locations()
 
-    for port in range(configuration.config.START_PORT, configuration.config.END_PORT):
+    for service in services:
         try:
-            response = requests.get(f'http://{docker_host}:{port}')
-            containers_responses.append(
-                f"Service at port: {port} - Status code: {response.status_code} - {response.text}")
+            parts = service.split(':')
+            response = requests.get(f'http://{service}', timeout=5)
+            report = f"Service at port: {parts[1]} - Status code: {response.status_code} - {response.text}"
+            logging.info(report)
+            results.append(report)
         except:
-            containers_responses.append(f"Service at {docker_host}:{port} - Service unavailable")
+            results.append(f"Service at {parts[0]}:{parts[1]} - Service unavailable")
 
-    return containers_responses
+
+def get_results():
+    global results
+    return results

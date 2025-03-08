@@ -122,7 +122,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -162,3 +161,8 @@ cython_debug/
 #.idea/
 /.idea/.gitignore
 /.idea/vcs.xml
+/.idea/coopmaster-health-check.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml

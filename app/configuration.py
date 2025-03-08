@@ -1,5 +1,5 @@
 import os
-from typing import get_type_hints, Union
+from typing import get_type_hints, Union, List
 
 from flask.cli import load_dotenv
 
@@ -19,9 +19,8 @@ class AppConfigError(Exception):
 class AppConfig:
     PORT: int = 9000
     HOST: str = "127.0.0.1"
-    START_PORT: int = 9001
-    END_PORT: int = 9010
-    DOCKER_HOST: str = "localhost"
+    SERVICES_LOCATIONS: str = ""
+    REPORT_INTERVAL: int = 60
 
 
     """
@@ -70,3 +69,6 @@ def get_log_directory():
 
 def get_log_filename():
     return log_file_name
+
+def get_services_locations():
+    return config.SERVICES_LOCATIONS.split(',')
